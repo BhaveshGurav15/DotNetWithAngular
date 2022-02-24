@@ -1,3 +1,17 @@
-<h1>Hello, Nitor!</h1>
-<p>Welcome to your Dot Net Core with Angular application</p>
+<h1>Employee List</h1>
+<hr>
+<table class="table table-striped">
+    <tr>
+        <th scope="col">Sr.</th>
+        <th scope="col">Name</th>
+        <th scope="col">Designation</th>
+        <th scope="col">Salary</th>
+    </tr>
+    <tr  *ngFor="let item of employeeList; let i=index">
+        <td>{{i+1}}</td>
+        <td>{{item.employee_FirstName}}</td>
+        <td>{{item.designation_Description}}</td>
+        <td>{{item.salary_Amount}}</td>
+    </tr>
+</table>
 

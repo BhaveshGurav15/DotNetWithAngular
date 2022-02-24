@@ -9,6 +9,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 
 import { LoginComponent } from './login/login.component';
+import { EmployeeComponent } from './employee/employee.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HttpInterceptorService } from './services/http-interceptor.service';
@@ -23,7 +24,8 @@ import { AdminGuard } from './guards/admin.guard';
     HomeComponent,
     LoginComponent,
     UserHomeComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,8 +35,10 @@ import { AdminGuard } from './guards/admin.guard';
     RouterModule.forRoot([
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
+    { path: 'employee', component: EmployeeComponent},
     { path: 'user-home', component: UserHomeComponent, canActivate: [AuthGuard] },
     { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] }
+
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },

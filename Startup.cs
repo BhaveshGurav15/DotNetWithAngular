@@ -56,6 +56,9 @@ namespace ngWithJwt
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            //Add connection
+            services.Configure<MySettingsModel>(Configuration.GetSection("MySettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
