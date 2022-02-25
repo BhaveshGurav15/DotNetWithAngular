@@ -9,7 +9,7 @@
     </tr>
     <tr  *ngFor="let item of employeeList; let i=index">
         <td>{{i+1}}</td>
-        <td>{{item.employee_FirstName}}</td>
+        <td><a [routerLink]="['/employee-info',item.employee_Id]">{{item.employee_FirstName}}</a></td>
         <td>{{item.designation_Description}}</td>
         <td>{{item.salary_Amount}}</td>
     </tr>

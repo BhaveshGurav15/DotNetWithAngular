@@ -22,19 +22,22 @@ namespace ngWithJwt.Translator
                 if (reader.IsColumnExists("Employee_FirstName"))
                     item.Employee_FirstName = SqlHelper.GetNullableString(reader, "Employee_FirstName");
 
-                //if (reader.IsColumnExists("EmailId"))
-                //    item.Employee_LastName = SqlHelper.GetNullableString(reader, "EmailId");
+            if (reader.IsColumnExists("Employee_LastName"))
+                item.Employee_LastName = SqlHelper.GetNullableString(reader, "Employee_LastName");
 
-                //if (reader.IsColumnExists("Address"))
-                //    item.Address = SqlHelper.GetNullableString(reader, "Address");
+            if (reader.IsColumnExists("Designation_Description"))
+                item.Designation_Description = SqlHelper.GetNullableString(reader, "Designation_Description");
 
-                //if (reader.IsColumnExists("Mobile"))
-                //    item.Mobile = SqlHelper.GetNullableString(reader, "Mobile");
+            if (reader.IsColumnExists("Salary_Amount"))
+                item.Salary_Amount = SqlHelper.GetNullableString(reader, "Salary_Amount");
 
-                //if (reader.IsColumnExists("IsActive"))
-                //    item.IsActive = SqlHelper.GetBoolean(reader, "IsActive");
+            if (reader.IsColumnExists("employee_ReportingTo"))
+                item.Employee_ReportingTo = SqlHelper.GetNullableString(reader, "employee_ReportingTo");
 
-                return item;
+            //if (reader.IsColumnExists("Employee_IsActive"))
+            //    item.Employee_IsActive = SqlHelper.GetBoolean(reader, "Employee_IsActive");
+
+            return item;
             }
 
             public static List<EmployeeModel> TranslateAsEmployeeList(this SqlDataReader reader)
@@ -46,6 +49,32 @@ namespace ngWithJwt.Translator
                 }
                 return list;
             }
+
+        public static EmployeeModel TranslateAsDesignationSalary(this SqlDataReader reader, bool isList = false)
+        {
+            if (!isList)
+            {
+                if (!reader.HasRows)
+                    return null;
+                reader.Read();
+            }
+            var item = new EmployeeModel();
+          
+            if (reader.IsColumnExists("Salary_Amount"))
+                item.Salary_Amount = SqlHelper.GetNullableString(reader, "Salary_Amount");
+
+            
+            return item;
         }
+        public static List<EmployeeModel> TranslateAsDesignationSalaryList(this SqlDataReader reader)
+        {
+            var list = new List<EmployeeModel>();
+            while (reader.Read())
+            {
+                list.Add(TranslateAsDesignationSalary(reader, true));
+            }
+            return list;
+        }
+    }
     
 }

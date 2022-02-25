@@ -12,5 +12,11 @@ export class EmployeeService {
     return this.http.get('/api/employee/GetEmployeeData');
   }
 
+  getEmployeeDetails(id:string) {
+    return this.http.get('/api/employee/GetEmployee/'+id);
+  }
   
+  getDesignationwiseSalaryData() {
+    return this.http.get('/api/employee/GetDesignationwiseSalaryData');
+  }
 }

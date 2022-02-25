@@ -10,12 +10,15 @@ import { HomeComponent } from './home/home.component';
 
 import { LoginComponent } from './login/login.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { EmployeeInfoComponent } from './employee-info/employee-info.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminGuard } from './guards/admin.guard';
+import { DesignationwiseSalaryComponent } from './employee-highchart/designationwiseSalary-barchart.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { AdminGuard } from './guards/admin.guard';
     LoginComponent,
     UserHomeComponent,
     AdminHomeComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    EmployeeInfoComponent,
+    DesignationwiseSalaryComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,7 +42,9 @@ import { AdminGuard } from './guards/admin.guard';
     { path: 'login', component: LoginComponent },
     { path: 'employee', component: EmployeeComponent},
     { path: 'user-home', component: UserHomeComponent, canActivate: [AuthGuard] },
-    { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] }
+    { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] },
+    { path: 'employee-info/:id', component: EmployeeInfoComponent},
+    { path: 'employee-highcharts', component: DesignationwiseSalaryComponent}
 
 ], { relativeLinkResolution: 'legacy' })
   ],

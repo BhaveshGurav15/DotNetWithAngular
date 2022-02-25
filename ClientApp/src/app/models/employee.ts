@@ -9,7 +9,5 @@ employee_MiddleName: string;
 employee_ModifiedBy: string;
 employee_ModifiedOn: string;
 employee_ReportingTo: string;
-employee_isActive: string;
-designation_Description: string;
-salary_Amount: string;
+employee_isActive: boolean;
 }

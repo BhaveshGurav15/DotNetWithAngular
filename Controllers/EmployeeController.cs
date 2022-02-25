@@ -21,9 +21,27 @@ namespace ngWithJwt.Controllers
         [HttpGet]
         [Route("GetEmployeeData")]
         //[Authorize(Policy = Policies.User)]
-        public IActionResult GetUserData()
+        public IActionResult GetEmployeeData()
         {
             var data = DbClientFactory<EmployeeDbClient>.Instance.GetAllEmployee(appSettings.Value.DbConn);
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [Route("GetEmployee/{id}")]
+        //[Authorize(Policy = Policies.User)]
+        public IActionResult GetEmployee(int id)
+        {
+            var data = DbClientFactory<EmployeeDbClient>.Instance.GetEmployeeById(appSettings.Value.DbConn,id);
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [Route("GetChart")]
+        //[Authorize(Policy = Policies.User)]
+        public IActionResult GetDesignationwiseSalaryChart(int id)
+        {
+            var data = DbClientFactory<EmployeeDbClient>.Instance.GetDesignationwiseSalary(appSettings.Value.DbConn);
             return Ok(data);
         }
     }
