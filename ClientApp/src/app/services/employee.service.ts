@@ -17,6 +17,6 @@ export class EmployeeService {
   }
   
   getDesignationwiseSalaryData() {
-    return this.http.get('/api/employee/GetDesignationwiseSalaryData');
+    return this.http.get('/api/employee/GetChart');
   }
 }

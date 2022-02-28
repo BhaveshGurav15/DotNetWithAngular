@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as HighCharts from 'highcharts';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
   selector: 'app-home',
@@ -8,14 +9,29 @@ import * as HighCharts from 'highcharts';
 export class DesignationwiseSalaryComponent implements OnInit {
     title = 'HighCharts';
     data:any;
-    constructor() { }
+    xdata:any;
+    ydata:any;
+    constructor(private employeeService:EmployeeService) { }
   
     ngOnInit() {
       this.barChartPopulation();
      }
   
     barChartPopulation() {
-        
+      
+      this.employeeService.getDesignationwiseSalaryData().subscribe((res) => {
+        this.data = res;
+        this.xdata=this.data.map(t=>t.designation_Description);
+        this.ydata=this.data.map(t=>t.salary_Amount).map(Number);
+        if (res)
+          console.log("ok");
+          console.log(res);
+          console.log(this.ydata);
+      },
+        err =>
+          console.log("faild")
+      );
+
       HighCharts.chart('barChart', {
         chart: {
           type: 'bar'
@@ -24,7 +40,8 @@ export class DesignationwiseSalaryComponent implements OnInit {
           text: 'Yearly salary by designation'
         },
         xAxis: {
-          categories: ['l1', 'l2', 'l3', 'l4', 'l5'],
+          //categories: ['l1', 'l2', 'l3', 'l4', 'l5'],
+          categories: this.xdata,
         },
         yAxis: {
           min: 0,
@@ -46,7 +63,8 @@ export class DesignationwiseSalaryComponent implements OnInit {
         series: [{
           type: undefined,
           name: 'Year 2016',
-          data: [1216, 1001, 4436, 738, 40]
+          //data: [1216, 1001, 4436]
+          data:this.ydata
         }]
       });
     }

@@ -22,10 +22,10 @@ namespace ngWithJwt.Repository
             return SqlHelper.ExtecuteProcedureReturnData<EmployeeModel>(connString,
                 "GetEmployeeById", r => r.TranslateAsEmployee(),param);
         }
-        public List<EmployeeModel> GetDesignationwiseSalary(string connString)
+        public List<DesignationSalaryModel> GetDesignationwiseSalary(string connString)
         {
-            return SqlHelper.ExtecuteProcedureReturnData<List<EmployeeModel>>(connString,
-                "GetDesignationwiseSalary", r => r.TranslateAsDesignationSalaryList());
+            return SqlHelper.ExtecuteProcedureReturnData<List<DesignationSalaryModel>>(connString,
+                "GetDesignationWiseSalary", r => r.TranslateAsDesignationSalaryList());
         }
     }
 }

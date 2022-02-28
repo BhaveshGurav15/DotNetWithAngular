@@ -39,7 +39,7 @@ namespace ngWithJwt.Controllers
         [HttpGet]
         [Route("GetChart")]
         //[Authorize(Policy = Policies.User)]
-        public IActionResult GetDesignationwiseSalaryChart(int id)
+        public IActionResult GetDesignationwiseSalaryChart()
         {
             var data = DbClientFactory<EmployeeDbClient>.Instance.GetDesignationwiseSalary(appSettings.Value.DbConn);
             return Ok(data);

@@ -50,7 +50,7 @@ namespace ngWithJwt.Translator
                 return list;
             }
 
-        public static EmployeeModel TranslateAsDesignationSalary(this SqlDataReader reader, bool isList = false)
+        public static DesignationSalaryModel TranslateAsDesignationSalary(this SqlDataReader reader, bool isList = false)
         {
             if (!isList)
             {
@@ -58,17 +58,19 @@ namespace ngWithJwt.Translator
                     return null;
                 reader.Read();
             }
-            var item = new EmployeeModel();
+            var item = new DesignationSalaryModel();
           
             if (reader.IsColumnExists("Salary_Amount"))
                 item.Salary_Amount = SqlHelper.GetNullableString(reader, "Salary_Amount");
 
-            
+            if (reader.IsColumnExists("Designation_Description"))
+                item.Designation_Description = SqlHelper.GetNullableString(reader, "Designation_Description");
+
             return item;
         }
-        public static List<EmployeeModel> TranslateAsDesignationSalaryList(this SqlDataReader reader)
+        public static List<DesignationSalaryModel> TranslateAsDesignationSalaryList(this SqlDataReader reader)
         {
-            var list = new List<EmployeeModel>();
+            var list = new List<DesignationSalaryModel>();
             while (reader.Read())
             {
                 list.Add(TranslateAsDesignationSalary(reader, true));
