@@ -7,7 +7,7 @@ import { EmployeeService } from '../services/employee.service';
   templateUrl: './designationwiseSalary-barchart.component.html',
 })
 export class DesignationwiseSalaryComponent implements OnInit {
-    title = 'HighCharts';
+    title = 'Chart';
     data:any;
     xdata:any;
     ydata:any;
@@ -21,7 +21,7 @@ export class DesignationwiseSalaryComponent implements OnInit {
       
       this.employeeService.getDesignationwiseSalaryData().subscribe((res) => {
         this.data = res;
-        this.xdata=this.data.map(t=>t.designation_Description);
+        this.xdata=this.data.map(t=>t.designation_Description).map(String);
         this.ydata=this.data.map(t=>t.salary_Amount).map(Number);
         if (res)
           console.log("ok");
@@ -46,12 +46,12 @@ export class DesignationwiseSalaryComponent implements OnInit {
         yAxis: {
           min: 0,
           title: {
-            text: 'Population (millions)',
+            text: 'Salary (Rupees)',
             align: 'high'
           },
         },
         tooltip: {
-          valueSuffix: ' millions'
+          valueSuffix: ' rupees'
         },
         plotOptions: {
           bar: {
@@ -62,9 +62,9 @@ export class DesignationwiseSalaryComponent implements OnInit {
         },
         series: [{
           type: undefined,
-          name: 'Year 2016',
-          //data: [1216, 1001, 4436]
-          data:this.ydata
+          name: 'Year 2022',
+          data: [10000, 20000, 30000]
+          //data:this.ydata
         }]
       });
     }

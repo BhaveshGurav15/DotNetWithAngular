@@ -26,32 +26,32 @@ namespace ngWithJwt
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //.AddJwtBearer(options =>
-            //{
-            //    options.RequireHttpsMetadata = false;
-            //    options.SaveToken = true;
-            //    options.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuer = true,
-            //        ValidateAudience = true,
-            //        ValidateLifetime = true,
-            //        ValidateIssuerSigningKey = true,
-            //        ValidIssuer = Configuration["Jwt:Issuer"],
-            //        ValidAudience = Configuration["Jwt:Audience"],
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
-            //        ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
-            //    };
-            //    services.AddCors();
-            //});
+            //services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
+                    ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
+                };
+                services.AddCors();
+            });
 
-            //services.AddAuthorization(config =>
-            //{
-            //    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-            //    config.AddPolicy(Policies.User, Policies.UserPolicy());
-            //});
-                        
+            services.AddAuthorization(config =>
+            {
+                config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+                config.AddPolicy(Policies.User, Policies.UserPolicy());
+            });
+
 
             services.AddControllersWithViews();
 
@@ -89,18 +89,18 @@ namespace ngWithJwt
             app.UseRouting();
 
             app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
-            app.Use(async(context,next)=>
-            {
-                if (!context.User.Identity?.IsAuthenticated ?? false)
-                {
-                    context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync("Not Authenticated");
-                }
-                else await next();
-            }
-            );
+            //app.Use(async(context,next)=>
+            //{
+            //    if (!context.User.Identity?.IsAuthenticated ?? false)
+            //    {
+            //        context.Response.StatusCode = 401;
+            //        await context.Response.WriteAsync("Not Authenticated");
+            //    }
+            //    else await next();
+            //}
+            //);
 
 
             app.UseEndpoints(endpoints =>
@@ -111,10 +111,7 @@ namespace ngWithJwt
             });
 
             app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
+            {                
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())

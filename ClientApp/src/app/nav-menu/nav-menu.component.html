@@ -61,6 +61,22 @@
             <a
               class="nav-link text-dark"
               *ngIf="userData.isLoggedIn"
+              [routerLink]="['/employee']"
+              >Employee</a
+            >
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a
+              class="nav-link text-dark"
+              *ngIf="userData.isLoggedIn"
+              [routerLink]="['/employee-highcharts']"
+              >Chart</a
+            >
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a
+              class="nav-link text-dark"
+              *ngIf="userData.isLoggedIn"
               (click)="logout()"
               >Logout</a
             >
