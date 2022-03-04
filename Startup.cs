@@ -26,32 +26,39 @@ namespace ngWithJwt
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
+            // Setting configuration for protected web api
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
-                    ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
-                };
-                services.AddCors();
-            });
+                .AddMicrosoftIdentityWebApi(Configuration);
+            // Creating policies that wraps the authorization requirements
+            services.AddAuthorization();
 
-            services.AddAuthorization(config =>
-            {
-                config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-                config.AddPolicy(Policies.User, Policies.UserPolicy());
-            });
+            /*
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //.AddJwtBearer(options =>
+            //{
+            //    options.RequireHttpsMetadata = false;
+            //    options.SaveToken = true;
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        ValidIssuer = Configuration["Jwt:Issuer"],
+            //        ValidAudience = Configuration["Jwt:Audience"],
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
+            //        ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
+            //    };
+            //    services.AddCors();
+            //});
 
+            //services.AddAuthorization(config =>
+            //{
+            //    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+            //    config.AddPolicy(Policies.User, Policies.UserPolicy());
+            //});
+
+            */
 
             services.AddControllersWithViews();
 
