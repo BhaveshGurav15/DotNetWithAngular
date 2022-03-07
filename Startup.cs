@@ -26,10 +26,8 @@ namespace ngWithJwt
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Setting configuration for protected web api
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration);
-            // Creating policies that wraps the authorization requirements
             services.AddAuthorization();
 
             /*
